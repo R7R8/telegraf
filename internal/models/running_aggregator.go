@@ -149,7 +149,7 @@ func (r *RunningAggregator) Run(
 			}
 			return
 		case m := <-r.metrics:
-			if m.Time().Before(r.periodStart) ||
+			if m.Time().Before(r.periodStart.Add(-5*time.Second)) ||
 				m.Time().After(r.periodEnd.Add(truncation).Add(r.Config.Delay)) {
 				// the metric is outside the current aggregation period, so
 				// skip it.
